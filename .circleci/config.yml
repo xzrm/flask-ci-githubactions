@@ -1,11 +1,15 @@
-version: 2
-jobs:
-  build:
-    docker:
-      - image: circleci/python:3.6.2-stretch-browsers
-        auth:
-          username: $DOCKER_LOGIN
-          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
-    steps:
-      - checkout
-      - run: pip install -r requirements.txt
+ version: 2.1
+
+ orbs:
+   heroku: circleci/heroku@x.y # Use the Heroku orb in your config
+
+ workflows:
+   heroku_deploy:
+     jobs:
+       - build
+       - heroku/deploy-via-git:
+           requires:
+             - build # only run deploy-via-git job if the build job has completed
+           filters:
+             branches:
+               only: master # only run deploy-via-git job on master branch
