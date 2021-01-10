@@ -57,13 +57,13 @@ jobs:
     - uses: actions/checkout@v1
     - name: Login to Heroku Container registry
       env: 
-        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_TOKEN }}
       run: heroku container:login 
     - name: Build and push
       env:
-        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_TOKEN }}
       run: heroku container:push -a cicd-test-app web 
     - name: Release
       env:
-        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_TOKEN }}
       run: heroku container:release -a cicd-test-app web 
