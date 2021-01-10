@@ -1,4 +1,2 @@
-*.pyc
-*.swp
-.DS_STORE
-env
+myvenv/
+__pycache__
